@@ -1,0 +1,741 @@
+:root {
+  /* === PALET TRADISIONAL MINIMALIS ===
+     Earthy brown + antique gold + cream — nuansa wayang yang lebih kalem.
+     Variabel lama (--sogan-brown, --golden-yellow) dipertahankan sebagai alias
+     supaya seluruh selector existing tetap jalan tanpa perlu diubah. */
+  --cream-bg: #f5efe6;        /* Background krem hangat */
+  --earthy-brown: #6b4f2c;    /* Coklat tanah (primer) */
+  --antique-gold: #b8924d;    /* Emas tua / antique gold (aksen) */
+  --dark-cocoa: #3d2e1f;      /* Teks utama, coklat sangat tua */
+  --border-cream: #d4c5a9;    /* Border lembut */
+
+  --bs-body-bg: var(--cream-bg);
+  --sogan-brown: var(--earthy-brown);      /* alias untuk kode lama */
+  --golden-yellow: var(--antique-gold);    /* alias untuk kode lama */
+  --bs-body-color: var(--dark-cocoa);
+  --shadow: 0 2px 4px rgba(61, 46, 31, 0.25);
+}
+
+.font-serif-jawa {
+  font-family: "Cormorant Garamond", serif;
+}
+
+.font-sans-jawa {
+  font-family: "Lato", sans-serif;
+}
+
+.font-arab {
+  font-family: "Amiri", serif;
+  direction: rtl;
+}
+body,
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Lato", sans-serif; /* Menggunakan Lato sebagai default */
+  /* Base coklat tua. Layer batik dipindah ke ::before supaya bisa dianimasikan
+     dengan lancar (background-attachment: fixed tidak ramah animasi). */
+  background-color: var(--dark-cocoa);
+}
+
+body::before {
+  /* === LAYER BATIK BUNGA RAME ===
+     Fixed full-viewport, di belakang konten. Pola tile 200×200 dengan
+     lotus, parang, sulur, wajik, daun, titik — densitas tinggi.
+     Animasi: drift diagonal sangat lambat, perulangan halus karena pola
+     repeat (pergeseran 200px = 1 tile = mulus tanpa "skip"). */
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("img/bg1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+section {
+  padding: 3rem 0;
+  position: relative;
+}
+.quote h1 {
+  font-family: "Great Vibes", cursive;
+  color: var(--earthy-brown);
+  font-size: 4rem;
+}
+.quote .tgl {
+  font-family: "Great Vibes", cursive;
+  color: var(--antique-gold);
+  font-size: 2rem;
+  text-shadow: 0 1px 2px rgba(184, 146, 77, 0.3);
+}
+.card-section {
+  /* Krem semi-transparan untuk kontras di atas bg coklat batik —
+     konten gelap di atas krem terang, motif batik tetap terlihat samar. 
+     Border dihapus sesuai permintaan. */
+  background-color: rgba(245, 239, 230, 0.7);
+  border-radius: 15px;
+  border: none;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 6px 20px rgba(61, 46, 31, 0.4);
+  color: var(--dark-cocoa);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+#acara p,
+#gift p,
+#closing p,
+#mempelai p {
+  font-weight: 300;
+}
+
+.card-section h2 {
+  color: var(--earthy-brown);
+  font-family: "Cormorant Garamond", serif;
+  font-size: x-large !important;
+}
+
+#mempelai .card-section {
+  border-radius: 50% / 25%;
+  padding: 7rem 5rem;
+}
+
+#mempelai .mempelai-pria,
+#mempelai .mempelai-wanita {
+  padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  #mempelai .card-section {
+    border-radius: 45% / 12%;
+    padding: 5rem 1.5rem;
+  }
+}
+
+.acara .card-body,
+.gift .gift-card {
+  color: black;
+  text-shadow: none;
+}
+
+.acara .card-body .icon {
+  color: var(--sogan-brown);
+}
+
+.acara .card-header,
+.card-footer a {
+  text-shadow: none;
+  color: black;
+  border: 1px solid black;
+}
+
+.gift-card * {
+  color: var(--dark-cocoa);
+  text-shadow: none;
+}
+
+.gift-card button {
+  border: 1px solid var(--golden-yellow);
+}
+.couple .text-sogan-brown,
+.gift .text-sogan-brown,
+.closing .text-sogan-brown,
+.acara .text-sogan-brown {
+  color: var(--earthy-brown) !important;
+}
+
+/* -- HALAMAN SAMPUL (COVER) -- */
+#cover {
+  height: 100vh; /* Mengisi seluruh tinggi layar */
+  background-image: url("img/bgcover1.png");
+  background-size: cover;
+  background-position: center;
+  /* Overlay coklat tua untuk kontras teks putih, lebih kalem dari biru pekat */
+  box-shadow: inset 0 0 0 2000px rgba(61, 46, 31, 0.6);
+  text-shadow: var(--shadow);
+  padding-top: 15rem;
+}
+.wayang {
+  height: 20rem;
+}
+/* -- KOMPONEN KUSTOM -- */
+.btn-jawa {
+  background-color: #ffcc33; /* Emas yang lebih cerah dan mencolok */
+  color: #1a1108; /* Teks coklat pekat agar kontras */
+  font-weight: bold;
+  border-radius: 50px;
+  padding: 0.75rem 2rem;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 15px rgba(255, 204, 51, 0.3);
+}
+
+.btn-jawa:hover {
+  transform: scale(1.05);
+  background-color: #ffdb4d;
+  color: #1a1108;
+  box-shadow: 0 0 20px rgba(255, 204, 51, 0.6);
+}
+
+#open-invitation {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(184, 146, 77, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px 20px rgba(184, 146, 77, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(184, 146, 77, 0);
+  }
+}
+
+.card-jawa {
+  border: none;
+  border-radius: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+.card-jawa .card-header {
+  background-color: var(--sogan-brown);
+  color: var(--golden-yellow);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  border-bottom: none;
+  padding: 1rem;
+}
+
+.list-group-item {
+  background-color: transparent;
+  border: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.list-group-item .icon {
+  color: var(--sogan-brown);
+  font-size: 1.5rem;
+  margin-right: 15px;
+}
+
+.wayang-photo {
+  filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.2));
+
+  /* Properti baru untuk bingkai emas */
+  background-color: white; /* Memberi \'alas\' putih di belakang gambar wayang */
+  padding: 4px; /* Jarak antara foto dan bingkai */
+  border: none; /* Garis bingkai emas dihapus */
+  border-radius: 50% / 50%; /* Bentuk oval */
+  aspect-ratio: 3 / 4; /* Proporsi oval potret */
+  object-fit: cover;
+  width: 150px;
+  max-width: 60%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan halus di luar bingkai */
+}
+
+/* -- BUKU TAMU & DINDING UCAPAN (WISH WALL) -- */
+.wish-wall-container {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.wish-card {
+  position: relative; /* Diperlukan untuk posisi absolut tombol hapus */
+  background-color: var(--bs-body-bg);
+  border: 1px solid #eee;
+  border-left: 5px solid var(--golden-yellow);
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.wish-card .card-name {
+  font-weight: bold;
+  color: var(--sogan-brown);
+  margin-bottom: 5px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.25rem;
+}
+
+.wish-card .card-text {
+  font-style: italic;
+  color: #555;
+}
+
+.wish-card .card-status {
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.25em 0.6em;
+  border-radius: 20px;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+.badge-hadir {
+  color: var(--sogan-brown);
+  background-color: var(--golden-yellow);
+  border: 1px solid var(--sogan-brown);
+}
+
+.badge-tidak-hadir {
+  color: #6c757d;
+  background-color: #e9ecef;
+  border: 1px solid #dee2e6;
+}
+
+.wish-card .btn-delete {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.8rem;
+  padding: 0.1rem 0.4rem;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 50px;
+  opacity: 0.2; /* Dibuat lebih transparan awalnya */
+  transition: opacity 0.3s;
+}
+
+.wish-card:hover .btn-delete {
+  opacity: 1; /* Muncul jelas saat card di-hover */
+}
+#mempelai a {
+  padding: 5px 10px;
+  font-size: 12px;
+  width: auto;
+  background-color: var(--golden-yellow);
+  border-radius: 40px;
+  color: var(--sogan-brown);
+  margin-top: -1rem;
+  text-decoration: none;
+  text-shadow: none;
+  display: inline-block;
+}
+/* -- KARTU HADIAH (GIFT CARD) -- */
+.gift-card {
+  background-color: transparent;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: none;
+  border: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.gift-logo {
+  max-height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* -- FOOTER -- */
+.site-footer {
+  padding: 2rem 0 70px; /* top, left/right, bottom */
+  font-size: 0.9rem;
+  color: white;
+}
+
+.site-footer a {
+  color: var(--sogan-brown);
+  text-decoration: none;
+  transition: color 0.3s;
+  color: white;
+}
+
+.site-footer a.footer-hashtag:hover {
+  color: var(--golden-yellow);
+}
+
+.closing .card-section img {
+  align-items: center;
+  height: 250px;
+}
+/* -- COUNTDOWN TIMER -- */
+.timer-box {
+  /* Opasitas background ditingkatkan untuk kontras yang lebih baik */
+  background-color: rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 15px;
+  padding: 1rem;
+  width: 95px;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.timer-box span {
+  font-size: 2.8rem;
+  font-weight: bold;
+  font-family: "Cormorant Garamond", serif;
+  color: #ffcc33; /* Warna emas yang lebih terang dan mencolok */
+}
+
+.timer-box small {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 240, 0.9);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* -- PENGONTROL MUSIK -- */
+#music-controller {
+  position: fixed;
+  bottom: 85px; /* Adjusted to be above the bottom navbar */
+  right: 25px;
+  width: 35px;
+  height: 35px;
+  background-color: var(--sogan-brown);
+  color: var(--golden-yellow);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  transition: transform 0.3s;
+}
+
+#music-controller:hover {
+  transform: scale(1.1);
+}
+
+/* Animasi berputar */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#music-controller.playing {
+  animation: spin 4s linear infinite;
+}
+
+/* -- ANIMASI WAYANG -- */
+#wayang-couple {
+  /* Filter untuk memberikan efek bayangan halus seperti wayang kulit */
+  filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.3));
+  /* Atur titik tumpu animasi di bagian tengah bawah gambar */
+  transform-origin: bottom center;
+}
+
+.wayang-animated {
+  /* Menerapkan animasi bernama \'sway\' */
+  animation: sway 5s ease-in-out infinite;
+  width: 19rem;
+  height: 20rem;
+}
+
+/* Mendefinisikan gerakan animasi \'sway\' */
+@keyframes sway {
+  0% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: rotate(-2deg);
+  }
+}
+
+/* -- DEKORASI BUNGA -- */
+.corner-flower {
+  position: fixed;
+  width: 300px;
+  max-width: 45vw;
+  z-index: 9998;
+  pointer-events: none;
+  filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+}
+
+.corner-flower.top-left {
+  top: -0px;
+  left: -30px;
+  transform-origin: center center;
+  animation: float-flower-tl 6s ease-in-out infinite;
+}
+
+.corner-flower.top-right {
+  top: -0px;
+  right: -30px;
+  transform-origin: center center;
+  animation: float-flower-tr 6s ease-in-out infinite;
+}
+
+.corner-flower.bottom-right {
+  bottom: 50px;
+  right: -30px;
+  transform-origin: center center;
+  animation: float-flower-br 3s ease-in-out infinite;
+  z-index: 100; /* Pastikan berada di bawah top-right */
+}
+
+@keyframes float-flower-tr {
+  0% { transform: rotate(-120deg) scale(1); }
+  50% { transform: rotate(-105deg) scale(1.05); }
+  100% { transform: rotate(-120deg) scale(1); }
+}
+
+@keyframes float-flower-br {
+  0% { transform: rotate(-50deg) scale(1); }
+  50% { transform: rotate(-50deg) scale(1.10); }
+  100% { transform: rotate(-50deg) scale(1); }
+}
+
+@keyframes float-flower-tl {
+  0% { transform: rotate(120deg) scale(1); }
+  50% { transform: rotate(125deg) scale(1.05); }
+  100% { transform: rotate(120deg) scale(1); }
+}
+
+@media (max-width: 1366px) {
+  html {
+    font-size: 75%;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 70%;
+  }
+  .acara {
+    min-height: auto;
+    padding: 10vh 0;
+  }
+
+  .mempelai-pria,
+  .mempelai-wanita {
+    margin-top: 2rem;
+  }
+
+  .mempelai-pria h3,
+  .mempelai-wanita h3 {
+    font-size: 2rem;
+  }
+}
+
+/* -- NAVBAR -- */
+.navbar {
+  background-color: rgba(61, 46, 31, 0.85); /* earthy-brown dengan transparansi */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Shadow on top for bottom navbar */
+}
+
+.nav-link {
+  color: #ffffff;
+  transition: color 0.3s;
+  padding: 0.5rem 0.2rem; /* Adjusted padding */
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--golden-yellow) !important;
+}
+
+.nav-link i {
+  font-size: 1.25rem;
+  display: block;
+  margin: 0 auto 0.25rem;
+}
+
+/* -- Responsive Adjustments -- */
+@media (max-width: 768px) {
+  .wayang-photo {
+    max-height: 280px; /* Reduce size for tablets and large phones */
+  }
+
+  h1.display-1,
+  #cover h1 {
+    font-size: 4rem; /* Reduce H1 size */
+  }
+
+  h2.display-5 {
+    font-size: 2.5rem; /* Reduce H2 size */
+  }
+
+  .countdown {
+    height: auto;
+    padding: 10vh 0;
+  }
+}
+
+@media (max-width: 450px) {
+  .wayang-photo {
+    max-height: 220px; /* Further reduce for small phones */
+  }
+
+  h1.display-1,
+  #cover h1 {
+    font-size: 3.5rem;
+  }
+
+  h2.display-5 {
+    font-size: 2.2rem;
+  }
+
+  .timer-box {
+    width: 75px; /* Shrink countdown boxes */
+    padding: 0.75rem 0.5rem;
+  }
+
+  .timer-box span {
+    font-size: 2.2rem;
+  }
+
+  .gift-card {
+    padding: 15px;
+  }
+
+  .acara .card {
+    /* Pastikan kartu tidak terlalu lebar di layar sangat kecil */
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 360px) {
+  .nav-link .nav-text {
+    display: none; /* Hide text on very small screens */
+  }
+  .nav-link i {
+    font-size: 1.5rem; /* Make icon slightly larger to compensate */
+    margin-bottom: 0;
+  }
+}
+
+/* -- Animasi Zoom In untuk Cover -- */
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+#cover > div {
+  animation: zoomIn 1.5s ease-out;
+  margin-top: 15rem; /* Menambahkan jarak atas untuk menurunkan teks */
+}
+
+.sway-animation {
+  /* Animasi diubah menjadi floating-pulse yang berjalan terus-menerus */
+  animation: floating-pulse 4s ease-in-out infinite;
+}
+
+@keyframes floating-pulse {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Menghapus atau menonaktifkan class is-visible jika sebelumnya digunakan untuk trigger scroll */
+.sway-animation.is-visible {
+  animation: floating-pulse 4s ease-in-out infinite;
+}
+
+/* --- Gaya untuk Notifikasi Pop-up Hari H --- */
+.notification-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none; /* Defaultnya tersembunyi */
+  justify-content: center;
+  align-items: center;
+  z-index: 10000; /* Pastikan di atas segalanya */
+  backdrop-filter: blur(5px);
+}
+
+.notification-content {
+  background-color: var(--cream-bg);
+  color: var(--dark-cocoa);
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  position: relative;
+  max-width: 90%;
+  width: 450px;
+  box-shadow: 0 10px 30px rgba(61, 46, 31, 0.25);
+  border: none;
+  transform: scale(0.9);
+  opacity: 0;
+  animation: modalZoomIn 0.5s forwards ease-out;
+}
+
+@keyframes modalZoomIn {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.notification-content h2 {
+  color: var(--earthy-brown);
+  text-shadow: 1px 1px 2px rgba(184, 146, 77, 0.4);
+  font-size: 2.5rem !important;
+}
+
+.notification-content p {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  color: var(--sogan-brown);
+}
+
+.notification-close-button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 35px;
+  font-weight: bold;
+  color: var(--sogan-brown);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.notification-close-button:hover {
+  transform: scale(1.2);
+  color: var(--golden-yellow);
+}
