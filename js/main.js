@@ -5,7 +5,7 @@
 // URL Script Google Anda
 // Ganti dengan URL Web App hasil deploy Google Apps Script milik pengantin baru.
 // Lihat panduan lengkap di RSVP_SETUP.md.
-const scriptURL = "PASTE_URL_APPS_SCRIPT_DI_SINI";
+const scriptURL = "https://script.google.com/macros/s/AKfycbxMbqm7H4b0x6cROgL8ry-rUY2sjeiHs6x3GkQKO6foXO0NqFTmYevE4XzqeBDpCqiS/exec";
 
 // Menjalankan semua kode setelah halaman HTML selesai dimuat
 document.addEventListener("DOMContentLoaded", function () {
