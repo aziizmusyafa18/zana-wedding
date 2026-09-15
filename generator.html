@@ -1,206 +1,139 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Generator Pesan WhatsApp</title>
+    <!-- Font & CSS dari Undangan Utama -->
+    <link rel="shortcut icon" href="img/icon2.png" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+
     <style>
-      :root {
-        --primary: #4f46e5;
-        --hover: #4338ca;
-        --bg: #f3f4f6;
-        --text: #1f2937;
-        --border: #e5e7eb;
-      }
-      * {
-        box-sizing: border-box;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
-      body {
-        background: var(--bg);
-        color: var(--text);
-        padding: 2rem;
-        margin: 0;
-      }
-      .container {
+      /* Tambahan gaya khusus halaman generator menyesuaikan tema undangan */
+      .generator-container {
         max-width: 800px;
-        margin: 0 auto;
-        background: white;
-        padding: 2rem;
+        margin: 3rem auto;
+        /* Efek Kaca (Glassmorphism) yang jauh lebih transparan */
+        background-color: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        padding: 2.5rem;
         border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        color: var(--dark-cocoa);
       }
-      h1 {
-        font-size: 1.8rem;
-        margin-top: 0;
-        border-bottom: 2px solid var(--border);
-        padding-bottom: 1rem;
-        color: #111827;
+      h1.generator-title {
+        font-family: "Cormorant Garamond", serif;
+        color: var(--earthy-brown);
+        border-bottom: 2px solid var(--border-cream);
+        padding-bottom: 0.5rem;
       }
-      p.subtitle {
-        color: #4b5563;
-        margin-bottom: 2rem;
+      .generator-subtitle {
+        font-size: 0.95rem;
+        color: var(--dark-cocoa);
+        opacity: 0.8;
       }
-      .form-group {
-        margin-bottom: 1.5rem;
+      .form-label {
+        font-weight: bold;
+        color: var(--earthy-brown);
       }
-      label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: #374151;
+      .form-control {
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        background-color: rgba(255, 255, 255, 0.3);
+        color: var(--dark-cocoa);
       }
-      input,
-      textarea {
-        width: 100%;
-        padding: 0.75rem;
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        font-size: 1rem;
-        transition: border-color 0.2s;
+      .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(184, 146, 77, 0.25);
+        border-color: var(--antique-gold);
       }
-      input:focus,
-      textarea:focus {
-        outline: none;
-        border-color: var(--primary);
-      }
-      textarea {
-        height: 200px;
-        resize: vertical;
-        line-height: 1.5;
-      }
-      button.btn-primary {
-        background: var(--primary);
-        color: white;
+      .btn-theme {
+        background-color: var(--earthy-brown);
+        color: var(--cream-bg);
+        font-weight: bold;
         border: none;
-        padding: 0.8rem 1.5rem;
-        border-radius: 6px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: 0.2s;
-        font-weight: 600;
-        width: 100%;
+        transition: 0.3s;
       }
-      button.btn-primary:hover {
-        background: var(--hover);
+      .btn-theme:hover {
+        background-color: var(--dark-cocoa);
+        color: var(--antique-gold);
       }
       .result-item {
-        border: 1px solid var(--border);
+        border: 1px solid rgba(255, 255, 255, 0.5);
         padding: 1.5rem;
         border-radius: 8px;
         margin-bottom: 1rem;
-        background: #f9fafb;
-      }
-      .result-header {
-        font-weight: bold;
-        margin-bottom: 1rem;
-        font-size: 1.1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .btn-wa {
-        background: #25d366;
-        text-decoration: none;
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        display: inline-block;
-        font-weight: 600;
-      }
-      .btn-wa:hover {
-        background: #1ebe5d;
-      }
-      .btn-copy {
-        background: #6b7280;
-        text-decoration: none;
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        cursor: pointer;
-        border: none;
-        font-weight: 600;
-      }
-      .btn-copy:hover {
-        background: #4b5563;
-      }
-      .action-buttons {
-        display: flex;
-        gap: 0.5rem;
+        background: rgba(255, 255, 255, 0.35);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
       }
       .preview-text {
         white-space: pre-wrap;
-        background: white;
+        background: rgba(255, 255, 255, 0.4);
         padding: 1rem;
-        border: 1px solid var(--border);
         border-radius: 6px;
         font-size: 0.95rem;
-        color: #4b5563;
         line-height: 1.6;
+        margin-top: 1rem;
+        border-left: 4px solid var(--antique-gold);
       }
-      .settings-panel {
-        background: #f8fafc;
-        padding: 1.5rem;
-        border-radius: 8px;
-        margin-bottom: 1.5rem;
-        border: 1px solid #e2e8f0;
+      .btn-wa {
+        background-color: #25d366;
+        color: white;
+        border: none;
       }
-      .grid-2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
+      .btn-wa:hover {
+        background-color: #1ebe5d;
+        color: white;
       }
-      @media (max-width: 600px) {
-        .grid-2 {
-          grid-template-columns: 1fr;
-        }
-        .result-header {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-        .action-buttons {
-          width: 100%;
-        }
-        .btn-copy,
-        .btn-wa {
-          flex: 1;
-          text-align: center;
-        }
-        body {
-          padding: 1rem;
+      .btn-copy {
+        background-color: var(--border-cream);
+        color: var(--dark-cocoa);
+        border: none;
+      }
+      .btn-copy:hover {
+        background-color: var(--antique-gold);
+        color: white;
+      }
+      @media (max-width: 576px) {
+        .generator-container {
+          margin: 1.5rem auto;
+          padding: 1.5rem;
         }
       }
     </style>
   </head>
-  <body>
+  <body class="font-sans-jawa">
     <div class="container">
-      <h1>Generator Pesan WhatsApp</h1>
-      <p class="subtitle">
-        Masukkan daftar nama tamu untuk meracik otomatis link dan pesan undangan
-        WhatsApp.
-      </p>
+      <div class="generator-container">
+        <h1 class="generator-title text-center mb-2">Generator Pesan WhatsApp</h1>
+        <p class="generator-subtitle text-center mb-4">
+          Masukkan daftar nama tamu (satu baris per nama) untuk meracik otomatis link dan pesan undangan.
+        </p>
 
-      <div class="form-group">
-        <label>Daftar Nama Tamu</label>
-        <textarea
-          id="guestList"
-          placeholder="Ketik nama tamu di sini...&#10;Satu nama per baris, contoh:&#10;&#10;Budi Santoso&#10;Siti Aminah&#10;Keluarga Bapak RT 01"
-        ></textarea>
+        <div class="mb-4">
+          <label class="form-label">Daftar Nama Tamu</label>
+          <textarea
+            id="guestList"
+            class="form-control"
+            rows="8"
+            placeholder="Ketik nama tamu di sini...&#10;Contoh:&#10;&#10;Bapak Budi Santoso&#10;Keluarga Ibu Siti"
+          ></textarea>
+        </div>
+
+        <button class="btn btn-theme w-100 py-3 mb-4 fs-5" onclick="generateLinks()">
+          <i class="bi bi-whatsapp me-2"></i> Buat Pesan WhatsApp Sekarang
+        </button>
+
+        <div id="results"></div>
       </div>
-
-      <button class="btn-primary" onclick="generateLinks()">
-        Buat Pesan WhatsApp Sekarang
-      </button>
-
-      <div id="results" style="margin-top: 2.5rem"></div>
     </div>
 
     <script>
-      // Template disamakan persis dengan isi generator.py
       function getMessageTemplate(
         guestName,
         invitationLink,
@@ -216,18 +149,16 @@
         const resultsContainer = document.getElementById("results");
 
         // Konfigurasi otomatis dari placeholder (diatur oleh developer)
-        let baseUrl = "https://lutfizainwedding.vercel.app/".trim();
-        const namaPria = "DANAS ZAINUL ULUM";
-        const namaWanita = "LUTFI SHOIRIN NAJAH";
-        const signature = "DANAS ZAINUL ULUM & LUTFI SHOIRIN NAJAH";
+        let baseUrl = "{{ BASE_INVITATION_URL }}".trim();
+        const namaWanita = "{{ NAMA_WANITA_LENGKAP }}";
+        const namaPria = "{{ NAMA_PRIA_LENGKAP }}";
+        const signature = "{{ NAMA_WANITA_PANGGILAN }} & {{ NAMA_PRIA_PANGGILAN }}";
 
-        // Validasi format URL agar selalu diakhiri /
         if (baseUrl && !baseUrl.endsWith("/")) {
           baseUrl += "/";
         }
 
-        resultsContainer.innerHTML =
-          '<h2 style="margin-bottom:1.5rem; border-bottom:1px solid #E5E7EB; padding-bottom:0.5rem;">Hasil Pesan:</h2>';
+        resultsContainer.innerHTML = '<h3 class="generator-title mt-4 mb-3 fs-4">Hasil Pesan:</h3>';
 
         const guests = guestsText
           .split("\n")
@@ -236,61 +167,54 @@
 
         if (guests.length === 0) {
           resultsContainer.innerHTML +=
-            '<p style="color:#DC2626; font-weight:bold;">Silakan masukkan minimal satu nama tamu terlebih dahulu!</p>';
+            '<div class="alert alert-danger d-flex align-items-center"><i class="bi bi-exclamation-triangle-fill me-2"></i> Silakan masukkan minimal satu nama tamu terlebih dahulu!</div>';
           return;
         }
 
         guests.forEach((guest, index) => {
           const encodedGuestName = encodeURIComponent(guest);
           const invitationLink = `${baseUrl}#${encodedGuestName}`;
-
-          const messageText = getMessageTemplate(
-            guest,
-            invitationLink,
-            namaWanita,
-            namaPria,
-            signature,
-          );
+          
+          const messageText = getMessageTemplate(guest, invitationLink, namaWanita, namaPria, signature);
           const encodedMessage = encodeURIComponent(messageText);
           const waLink = `https://wa.me/?text=${encodedMessage}`;
+          
+          const safeMessage = messageText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-          const card = document.createElement("div");
-          card.className = "result-item";
-
-          const safeMessage = messageText
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
-
-          card.innerHTML = `
-                    <div class="result-header">
-                        <span>${index + 1}. Untuk: <strong>${guest}</strong></span>
-                        <div class="action-buttons">
-                            <button class="btn-copy" onclick="copyText(this, \`${encodedMessage}\`)">Salin Teks</button>
-                            <a href="${waLink}" target="_blank" class="btn-wa">Buka WhatsApp</a>
-                        </div>
-                    </div>
-                    <div class="preview-text">${safeMessage}</div>
-                `;
-          resultsContainer.appendChild(card);
+          resultsContainer.innerHTML += `
+            <div class="result-item">
+              <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <h5 class="mb-0 text-dark fw-bold" style="color: var(--dark-cocoa) !important;">${index + 1}. Untuk: ${guest}</h5>
+                <div class="d-flex gap-2 flex-wrap">
+                  <button class="btn btn-copy btn-sm fw-bold px-3 py-2" onclick="copyText(this, \`${encodedMessage}\`)">
+                    <i class="bi bi-copy"></i> Salin Teks
+                  </button>
+                  <a href="${waLink}" target="_blank" class="btn btn-wa btn-sm fw-bold px-3 py-2">
+                    <i class="bi bi-whatsapp"></i> Buka WhatsApp
+                  </a>
+                </div>
+              </div>
+              <div class="preview-text">${safeMessage}</div>
+            </div>
+          `;
         });
       }
 
       function copyText(btn, encodedText) {
         const text = decodeURIComponent(encodedText);
-        navigator.clipboard
-          .writeText(text)
-          .then(() => {
-            const originalText = btn.innerText;
-            btn.innerText = "Tersalin! ✓";
-            btn.style.background = "#10B981";
-            setTimeout(() => {
-              btn.innerText = originalText;
-              btn.style.background = "#6B7280";
-            }, 2000);
-          })
-          .catch((err) => {
-            alert("Gagal menyalin teks. Silakan blok teks manual dan copy.");
-          });
+        navigator.clipboard.writeText(text).then(() => {
+          const originalHTML = btn.innerHTML;
+          btn.innerHTML = '<i class="bi bi-check2"></i> Tersalin!';
+          btn.classList.add('bg-success', 'text-white');
+          btn.classList.remove('btn-copy');
+          setTimeout(() => {
+            btn.innerHTML = originalHTML;
+            btn.classList.remove('bg-success', 'text-white');
+            btn.classList.add('btn-copy');
+          }, 2000);
+        }).catch(err => {
+          alert("Gagal menyalin teks. Silakan salin manual.");
+        });
       }
     </script>
   </body>
