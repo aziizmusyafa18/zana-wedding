@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generator Pesan WhatsApp</title>
+    <style>
+      :root {
+        --primary: #4f46e5;
+        --hover: #4338ca;
+        --bg: #f3f4f6;
+        --text: #1f2937;
+        --border: #e5e7eb;
+      }
+      * {
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        padding: 2rem;
+        margin: 0;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        font-size: 1.8rem;
+        margin-top: 0;
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 1rem;
+        color: #111827;
+      }
+      p.subtitle {
+        color: #4b5563;
+        margin-bottom: 2rem;
+      }
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #374151;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.2s;
+      }
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+      textarea {
+        height: 200px;
+        resize: vertical;
+        line-height: 1.5;
+      }
+      button.btn-primary {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.2s;
+        font-weight: 600;
+        width: 100%;
+      }
+      button.btn-primary:hover {
+        background: var(--hover);
+      }
+      .result-item {
+        border: 1px solid var(--border);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        background: #f9fafb;
+      }
+      .result-header {
+        font-weight: bold;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .btn-wa {
+        background: #25d366;
+        text-decoration: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        display: inline-block;
+        font-weight: 600;
+      }
+      .btn-wa:hover {
+        background: #1ebe5d;
+      }
+      .btn-copy {
+        background: #6b7280;
+        text-decoration: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        border: none;
+        font-weight: 600;
+      }
+      .btn-copy:hover {
+        background: #4b5563;
+      }
+      .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .preview-text {
+        white-space: pre-wrap;
+        background: white;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 0.95rem;
+        color: #4b5563;
+        line-height: 1.6;
+      }
+      .settings-panel {
+        background: #f8fafc;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        border: 1px solid #e2e8f0;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      @media (max-width: 600px) {
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+        .result-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .action-buttons {
+          width: 100%;
+        }
+        .btn-copy,
+        .btn-wa {
+          flex: 1;
+          text-align: center;
+        }
+        body {
+          padding: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Generator Pesan WhatsApp</h1>
+      <p class="subtitle">
+        Masukkan daftar nama tamu untuk meracik otomatis link dan pesan undangan
+        WhatsApp.
+      </p>
+
+      <div class="form-group">
+        <label>Daftar Nama Tamu</label>
+        <textarea
+          id="guestList"
+          placeholder="Ketik nama tamu di sini...&#10;Satu nama per baris, contoh:&#10;&#10;Budi Santoso&#10;Siti Aminah&#10;Keluarga Bapak RT 01"
+        ></textarea>
+      </div>
+
+      <button class="btn-primary" onclick="generateLinks()">
+        Buat Pesan WhatsApp Sekarang
+      </button>
+
+      <div id="results" style="margin-top: 2.5rem"></div>
+    </div>
+
+    <script>
+      // Template disamakan persis dengan isi generator.py
+      function getMessageTemplate(
+        guestName,
+        invitationLink,
+        wanita,
+        pria,
+        signature,
+      ) {
+        return `Kepada Yth.\nBapak/Ibu/Saudara/i\n\n_Assalamualaikum Warahmatullahi Wabarakaatuh_\nDengan memohon rahmat dan ridho Allah SWT, perkenankan kami mengundang Bapak/Ibu/Saudara/i *${guestName}* untuk menghadiri acara pernikahan kami :\n\n🤵🏻 *${pria}*\n\ndengan\n\n🧕🏻 *${wanita}*\n\n*Untuk informasi detail mengenai acara, silahkan kunjungi link dibawah ini :*\n\n*${invitationLink}*\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\nAtas kehadiran dan doa restunya kami ucapkan terima kasih.\n_Wassalamualaikum Warahmatullahi Wabarakaatuh_\n\nHormat kami,\n*${signature}*`;
+      }
+
+      function generateLinks() {
+        const guestsText = document.getElementById("guestList").value;
+        const resultsContainer = document.getElementById("results");
+
+        // Konfigurasi otomatis dari placeholder (diatur oleh developer)
+        let baseUrl = "https://lutfizainwedding.vercel.app/".trim();
+        const namaPria = "DANAS ZAINUL ULUM";
+        const namaWanita = "LUTFI SHOIRIN NAJAH";
+        const signature = "DANAS ZAINUL ULUM & LUTFI SHOIRIN NAJAH";
+
+        // Validasi format URL agar selalu diakhiri /
+        if (baseUrl && !baseUrl.endsWith("/")) {
+          baseUrl += "/";
+        }
+
+        resultsContainer.innerHTML =
+          '<h2 style="margin-bottom:1.5rem; border-bottom:1px solid #E5E7EB; padding-bottom:0.5rem;">Hasil Pesan:</h2>';
+
+        const guests = guestsText
+          .split("\n")
+          .map((g) => g.trim())
+          .filter((g) => g.length > 0);
+
+        if (guests.length === 0) {
+          resultsContainer.innerHTML +=
+            '<p style="color:#DC2626; font-weight:bold;">Silakan masukkan minimal satu nama tamu terlebih dahulu!</p>';
+          return;
+        }
+
+        guests.forEach((guest, index) => {
+          const encodedGuestName = encodeURIComponent(guest);
+          const invitationLink = `${baseUrl}#${encodedGuestName}`;
+
+          const messageText = getMessageTemplate(
+            guest,
+            invitationLink,
+            namaWanita,
+            namaPria,
+            signature,
+          );
+          const encodedMessage = encodeURIComponent(messageText);
+          const waLink = `https://wa.me/?text=${encodedMessage}`;
+
+          const card = document.createElement("div");
+          card.className = "result-item";
+
+          const safeMessage = messageText
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+
+          card.innerHTML = `
+                    <div class="result-header">
+                        <span>${index + 1}. Untuk: <strong>${guest}</strong></span>
+                        <div class="action-buttons">
+                            <button class="btn-copy" onclick="copyText(this, \`${encodedMessage}\`)">Salin Teks</button>
+                            <a href="${waLink}" target="_blank" class="btn-wa">Buka WhatsApp</a>
+                        </div>
+                    </div>
+                    <div class="preview-text">${safeMessage}</div>
+                `;
+          resultsContainer.appendChild(card);
+        });
+      }
+
+      function copyText(btn, encodedText) {
+        const text = decodeURIComponent(encodedText);
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            const originalText = btn.innerText;
+            btn.innerText = "Tersalin! ✓";
+            btn.style.background = "#10B981";
+            setTimeout(() => {
+              btn.innerText = originalText;
+              btn.style.background = "#6B7280";
+            }, 2000);
+          })
+          .catch((err) => {
+            alert("Gagal menyalin teks. Silakan blok teks manual dan copy.");
+          });
+      }
+    </script>
+  </body>
+</html>

@@ -24,11 +24,12 @@ Bapak/Ibu/Saudara/i
 _Assalamualaikum Warahmatullahi Wabarakaatuh_
 Dengan memohon rahmat dan ridho Allah SWT, perkenankan kami mengundang Bapak/Ibu/Saudara/i *{{guest_name}}* untuk menghadiri acara pernikahan kami :
 
-🧕🏻 *{NAMA_WANITA}*
+🤵🏻 *{NAMA_PRIA}*
 
 dengan
 
-🤵🏻 *{NAMA_PRIA}*
+🧕🏻 *{NAMA_WANITA}*
+
 
 *Untuk informasi detail mengenai acara, silahkan kunjungi link dibawah ini :*
 
