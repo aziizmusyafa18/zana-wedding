@@ -137,8 +137,8 @@
       function getMessageTemplate(
         guestName,
         invitationLink,
-        wanita,
         pria,
+        wanita,
         signature,
       ) {
         return `Kepada Yth.\nBapak/Ibu/Saudara/i\n\n_Assalamualaikum Warahmatullahi Wabarakaatuh_\nDengan memohon rahmat dan ridho Allah SWT, perkenankan kami mengundang Bapak/Ibu/Saudara/i *${guestName}* untuk menghadiri acara pernikahan kami :\n\n🤵🏻 *${pria}*\n\ndengan\n\n🧕🏻 *${wanita}*\n\n*Untuk informasi detail mengenai acara, silahkan kunjungi link dibawah ini :*\n\n*${invitationLink}*\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\nAtas kehadiran dan doa restunya kami ucapkan terima kasih.\n_Wassalamualaikum Warahmatullahi Wabarakaatuh_\n\nHormat kami,\n*${signature}*`;
@@ -148,11 +148,11 @@
         const guestsText = document.getElementById("guestList").value;
         const resultsContainer = document.getElementById("results");
 
-        // Konfigurasi otomatis dari placeholder (diatur oleh developer)
-        let baseUrl = "{{ BASE_INVITATION_URL }}".trim();
-        const namaWanita = "{{ NAMA_WANITA_LENGKAP }}";
-        const namaPria = "{{ NAMA_PRIA_LENGKAP }}";
-        const signature = "{{ NAMA_WANITA_PANGGILAN }} & {{ NAMA_PRIA_PANGGILAN }}";
+        // Konfigurasi otomatis dari placeholder
+        let baseUrl = " https://lutfizainwedding.vercel.app/ ".trim();
+        const namaWanita = "LUTFI SHOIRIN NAJAH";
+        const namaPria = "DANAS ZAINUL ULUM";
+        const signature = "DANAS ZAINUL ULUM & LUTFI SHOIRIN NAJAH";
 
         if (baseUrl && !baseUrl.endsWith("/")) {
           baseUrl += "/";
@@ -175,7 +175,7 @@
           const encodedGuestName = encodeURIComponent(guest);
           const invitationLink = `${baseUrl}#${encodedGuestName}`;
           
-          const messageText = getMessageTemplate(guest, invitationLink, namaWanita, namaPria, signature);
+          const messageText = getMessageTemplate(guest, invitationLink, namaPria, namaWanita, signature);
           const encodedMessage = encodeURIComponent(messageText);
           const waLink = `https://wa.me/?text=${encodedMessage}`;
           
